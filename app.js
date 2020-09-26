@@ -1,23 +1,26 @@
 const baseUrl="https://api.nasa.gov/planetary/apod";
-var key="eNOpuzl4uLSF0apZlDvsDc5GUrgTizqXlTT9TeZG";
+var api_key="GfCbpF06jvrNc6smoDiwj7Vxt6pstaBJf9W5IhxO";
 
 var url=new URL(baseUrl);
-url.searchParams.set("key",key);
+url.searchParams.set("api_key",api_key);
 
-function getAstronomicPhotoDayPromise(){
-    return new Promise(function(resolve,reject){
-        fetch(url.href)
-        .then(function(response){
-            if(response.status===200){
-                resolve(response)
-            }else{
-                response.json().then(function(reason){
-                    reject(reason)
-                });
-            }
-        })
-        .catch(function(error){
-            return new Error("Please try again!")
-        })
-    })
+async function getAstronomicPhotoDayPromise(){
+    let response= await fetch("https://api.nasa.gov/planetary/apod?api_key=GfCbpF06jvrNc6smoDiwj7Vxt6pstaBJf9W5IhxO");
+    let json=await response.json();
+    console.log(json)
+    
 }
+
+function showPhoto(photoUrl){
+    var img=document.getElementById("photo")
+    img.src=photoUrl;
+}
+
+function showTitle(photoTitle){
+    var title=document.getElementById("title");
+    
+}
+
+getAstronomicPhotoDayPromise()
+showPhoto()
+showTitle()  
